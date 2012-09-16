@@ -1,0 +1,10 @@
+.myButton 
+{
+    outline:0;
+    padding:5px 9px;
+}
+
+.upload-image-sections{
+    height: 250px;
+    width: 250px;
+}

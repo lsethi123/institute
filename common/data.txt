@@ -1,0 +1,148 @@
+<?php
+    $site_root=$_SERVER['DOCUMENT_ROOT'];
+    require_once($site_root.'configuration.php');
+	include_once(COMMON . DS . 'class.upload.php');
+    include_once(COMMON . DS . 'save_image.php');
+    
+    $s_obj = new save_image();
+    
+    $response = $s_obj->save_upload($_FILES['img_upload']);
+    if($response['RESULT'] == 'SUCCESS'){
+        echo $s_obj->target_folder;
+        echo '<br />';
+        
+        echo $s_obj->target_file;
+        echo '<br />';
+        
+        echo $s_obj->target_path;
+        echo '<br />';
+        
+        $handle = new Upload($s_obj->target_path);
+        
+        if ($handle->uploaded) {
+            echo ' IN ';
+            $handle->file_new_name_body   = 'thumb' . md5(uniqid());
+            $handle->image_resize          = true;
+            //$handle->image_ratio_fill      = true;
+            $handle->image_ratio_crop      = true;
+            $handle->image_y               = 100;
+            $handle->image_x               = 100;
+            echo ' IN=> ';
+            $handle->Process($s_obj->target_folder . 'thumbnails/');
+            echo 'OUT';
+            echo '  { ' . $handle->file_dst_name . ' }';
+        }
+        
+        echo $handle->error;
+        
+        $response['THUMB'] = $s_obj->output_path . 'thumbnails/' . $handle->file_dst_name;
+        echo json_encode($response);
+        echo '<br />';
+        echo '<img src=\'' . $response['RESOURCE'] . '\' />';
+        echo '<br />';
+        echo '<img src=\'' . $response['THUMB'] . '\' />';
+    }
+?>
+
+
+
+.upload-image{
+    /*height: 250px;
+    width: 250px;*/
+    padding: 10px;
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    background-color: #E5E5E5;
+    border: 2px solid #D9D9D9;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.upload-section .preview{
+    border: 2px dotted #CCC;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    height: 100px;
+    width: 120px;
+    margin: 5px auto;
+}
+
+.upload-section .upload-section-file{
+    text-align: center;
+}
+
+.best-size{
+    font-size: 10px;
+}
+
+.upload-section .upload-section-file label{
+    display: block;
+    text-align: center;
+    color: #444;
+    line-height: 30px;
+}
+
+
+<div class="upload-image">
+                            <div class="upload-section">
+                                <div class="preview">
+                    				<img id="thumb" width="120px" height="100px" src="<?php echo $final_image_path; ?>" />
+                				</div>
+                                <div class="upload-section-file">
+            						<label>Upload Your Institute Logo</label>
+            						<div class="myButton">Choose Logo</div>
+                                    <label class="best-size">best size : 100px * 120px</label>
+                    			</div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+new AjaxUpload('btnUploadIcon', {
+        		action: '<?php echo DOMAIN ?>modules/save_logo.php',
+        		name: 'img_upload',
+        		onSubmit: function(file, extension) {
+        			$('.upload-image-icon .preview').addClass('loading');
+        		},
+        		onComplete: function(file, response) {
+        			thumbIcon.load(function(){
+        				$('.upload-image-icon .preview').removeClass('loading');
+        				thumbIcon.unbind();
+        			});
+        			thumbIcon.attr('src', response);
+        		}
+        	});
+            
+            
+Gala No.7, Radha Residency-3,
+Deshmukh Complex, Near Tata Power,
+Kalyan Shil Road, Dombivali(East)
+
+//ARRAY ITERATE
+$dt = array(
+                        array(':id','100',PDO::PARAM_INT),
+                        array(':name','SUNIL',PDO::PARAM_INT),
+                        array(':add','DOMBIVALI',PDO::PARAM_INT)
+                    );
+        foreach($dt as $key => $value)
+        {
+            foreach($value as $key => $value)
+            {
+                echo '[' . $key . ' => ' . $value . ']<br />';
+            }
+        }
+        
+        foreach($dt as $value)
+        {
+            foreach($value as $key => $value)
+            {
+                echo '[' . $key . ' => ' . $value . ']<br />';
+            }
+        }
+        
+
+&$fname, &$mname, &$lname, &$parent_name, &$parent_occu, &$gender, &$dob, &$address, &$email, &$std, &$phone, &$mobile, &$standard_adm, &$medium, &$fees_p, &$sub1, &$mark1, &$sub2, &$mark2, &$sub3, &$mark3, &$sub4, &$mark4, &$sub5, &$mark5, &$sub6, &$mark6, &$sub7, &$mark7
